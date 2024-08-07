@@ -16,11 +16,13 @@ def main(message):
 @bot.message_handler(commands=['names'])
 def m(message):
     bot.send_message(message.chat.id,'Введите имя бота, но учтите, что оно должно быть менее 20 символов, начинается не с цифры и заканчивается на слово bot', parse_mode='Markdown')
+    bot.register_next_step_handler(message, a)
 
 def a(message):
-    if len(message)<=20 and message[0] not in '1234567890' and (message[-3]=='b' and message[-2]=='o' and message[-1]=='t'):
+    if len(message.text)<=20 and message.text[0] not in '1234567890' and (message.text[-3]=='b' and message.text[-2]=='o' and message.text[-1]=='t'):
         bot.send_message(message.chat.id,'Ник одобрен!', parse_mode='Markdown')
     else:
         bot.send_message(message.chat.id, 'В нике допущена ошибка!', parse_mode='Markdown')
+
 
 bot.infinity_polling()
